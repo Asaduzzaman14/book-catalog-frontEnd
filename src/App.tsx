@@ -1,0 +1,27 @@
+import { useState } from 'react'
+import './App.css'
+import Navbar from './layout/Navbar'
+import MainLaylout from './layout/MainLaylout'
+import { useAppDispatch } from './redux/hooks'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from './lib/firebase'
+import { setUser } from './redux/features/userSlice'
+
+function App() {
+
+  const dispatch = useAppDispatch()
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      dispatch(setUser(user.email))
+    }
+  })
+
+  return (
+    <>
+      <MainLaylout />
+    </>
+  )
+}
+
+export default App
