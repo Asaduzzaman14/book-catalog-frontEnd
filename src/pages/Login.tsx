@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../redux/features/userSlice';
 
 
@@ -27,7 +27,7 @@ const Login = () => {
 
     React.useEffect(() => {
         console.log(user);
-        if (user && !isLoading) {
+        if (user.email != null && !isLoading) {
             navigate('/')
         }
 
@@ -37,7 +37,6 @@ const Login = () => {
     const handelFormSubmit = (data: LoginFormInputs) => {
         console.log(data)
         dispatch(loginUser({ email: data.email, password: data.password }))
-
     }
 
     return (
@@ -73,6 +72,7 @@ const Login = () => {
                             {...register('password', { required: 'Password is required' })}
                         />
                     </div>
+                    <Link to='/sign-up' className='underline py-2'>Create Account</Link>
                     {errors.password && <p>{errors.password.message}</p>}
 
                     <div className='mt-8 mx-auto text-center'>

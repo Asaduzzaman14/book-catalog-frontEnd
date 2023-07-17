@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { IBook } from '../types/globalTypes';
 import { usePostBookMutation } from '../redux/features/book/bookApi';
 import { toast } from 'react-toastify';
+import { useAppSelector } from '../redux/hooks';
+import { useNavigate } from 'react-router-dom';
 
 const AddNewBook = () => {
+    const { user } = useAppSelector(state => state.user)
+    const navigate = useNavigate()
 
+
+    useEffect(() => {
+        if (user.email == null) {
+            navigate('/all-books')
+            toast('Please Login')
+        }
+    }, [])
 
     const [postBook, { isError, isLoading, isSuccess }] = usePostBookMutation()
     console.log(isError);
@@ -20,7 +31,14 @@ const AddNewBook = () => {
     console.log(errors);
 
     const handelFormSubmit = (data: IBook) => {
-        // console.log({ data })
+        const bookData = {
+            ...data,
+            reviews: []
+        }
+        console.log(bookData);
+        console.log(data);
+
+
         postBook({ data })
     }
     if (isSuccess) {
@@ -29,12 +47,13 @@ const AddNewBook = () => {
 
 
     return (
-        <div>
-            <h2 className='text-2xl text-black text-center mt-5 font-bold'>ADD NEW BOOK</h2>
-            <form className='bg-base-300 border-black rounded-lg p-10'
+        <div className='bg-base-300 grid justify-center'>
+            <h2 className='text-2xl text-black text-center pt-5 font-bold'>ADD NEW BOOK</h2>
+
+            <form className=' border-black rounded-lg p-10'
                 onSubmit={handleSubmit(handelFormSubmit)}>
                 <div className='grid'>
-                    <label className='text-2xl inline-block' htmlFor="title">Title</label>
+                    {/* <label className='text-2xl inline-block' htmlFor="title">Title</label> */}
                     <input
                         className="py-2 mt-3 px-4 block w-80 max-w-lg border-gray-200 rounded-md text-lg focus:border-blue-500 focus:ring-blue-500  dark:border-gray-700 dark:text-gray-700"
                         type="text"

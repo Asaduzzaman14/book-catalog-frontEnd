@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { useAppSelector } from '../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { signOut } from 'firebase/auth';
+import { auth } from '../lib/firebase';
+import { setUser } from '../redux/features/userSlice';
 
 
 
@@ -11,11 +14,15 @@ const Navbar = () => {
 
     const { user } = useAppSelector(state => state.user)
 
-    console.log(user.email);
+    const dispatch = useAppDispatch()
 
-    const logout = () => {
-        localStorage.removeItem('accessToken');
+    const logout = async () => {
+        await signOut(auth)
+            .then(() => {
+                dispatch(setUser(null))
+            })
     }
+
     return (
         <div className=' shadow-md z-50 w-full relative top-0 left-0'>
             {/* <div className=' md:flex justify-between items-center bg-gray-900 text-white'> */}
@@ -23,7 +30,7 @@ const Navbar = () => {
 
                 <div className='py-4'>
                     <Link to='/'>
-                        <span className="text-2xl py-4 ml-2 lg:ml-8 text-secondary">Book<span className='text-white'>Shop</span></span>
+                        <span className="text-2xl py-4 ml-2 lg:ml-8 text-success font-bold">Book<span className='text-white'>Shop</span></span>
                     </Link>
                 </div>
 
@@ -57,10 +64,10 @@ const Navbar = () => {
                             </li>
 
 
-                            {user.email ?
+                            {user.email != null ?
                                 <li style={{ cursor: 'pointer' }} onClick={logout} className='md:ml-3 md:my-0 pointer px-2 py-4 transition-all duration-500 ease-in '>
                                     <span className='text-lg text-gray-200 p-2 px-3  border rounded-sm hover:text-red-600 font-semibold transition-all duration-400'>
-                                        SIGN OUT
+                                        LOG OUT
                                     </span>
                                 </li>
                                 :

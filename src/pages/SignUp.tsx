@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { auth } from '../lib/firebase';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { createUser } from '../redux/features/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface LoginFormInputs {
     email: string;
@@ -42,7 +42,7 @@ const SignUp = () => {
 
     return (
         <div className=' bg-base-100'>
-            <h2 className='text-2xl text-black text-center mt-5 font-bold'>SignUp</h2>
+            <h2 className='text-2xl text-center mt-5 font-bold text-success'>CREACT  ACCOUNT</h2>
             <div className='grid justify-items-center mt-5'>
                 <form className='bg-base-300 border-black rounded-lg p-10' onSubmit={handleSubmit(handelFormSubmit)}>
                     <div className='grid'>
@@ -75,6 +75,9 @@ const SignUp = () => {
                             {...register('password', { required: 'Password is required' })}
                         />
                     </div>
+                    <Link to="/login">
+                        <p>Already Have An account</p>
+                    </Link>
                     <div className='mt-8 mx-auto text-center'>
                         <button className=" btn btn-success">Create Account</button>
                     </div>

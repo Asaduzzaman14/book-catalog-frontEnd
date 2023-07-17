@@ -1,116 +1,186 @@
-import { useParams } from 'react-router-dom';
-import bookImg from '../assets/books/printpress-product-7.jpg'
-import { useGetSingleBookQuery, useUpdateBookMutation } from '../redux/features/book/bookApi';
-import { useForm } from 'react-hook-form';
-import { IBook } from '../types/globalTypes';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useDeleteBookMutation, useGetSingleBookQuery, usePostBookMutation, usePostReviewMutation, useUpdateBookMutation } from '../redux/features/book/bookApi';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useAppSelector } from '../redux/hooks';
+
 const BookDetails = () => {
     const params = useParams();
-
     const id = params.id
-    const { data, isLoading, error } = useGetSingleBookQuery(id)
-    const [updateBook, { isError, isSuccess }] = useUpdateBookMutation()
+    const navigate = useNavigate()
+    const { data, isLoading } = useGetSingleBookQuery(id)
+    const user = useAppSelector(state => state.user.user)
 
-    console.log(data);
-    console.log(isError);
-    console.log(isSuccess);
-
+    // console.log(data);
 
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<IBook>();
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
+    const [genre, setGenre] = useState('')
+    const [publicationDate, setPublicationDate] = useState('')
+    const [img, setImg] = useState('')
 
-    console.log(errors);
+    const [updateBook, { isSuccess }] = useUpdateBookMutation()
 
-    const handelFormSubmit = (data: IBook) => {
-        console.log(data)
-        const options = {
-            data: data
+    const [deleteBook, { isSuccess: deleteSucces }] = useDeleteBookMutation()
+    const [postReview, { isSuccess: postSucces }] = usePostReviewMutation()
+
+
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const data = {
+            id: id,
+            data: {
+                title: title,
+                author: author,
+                genre: genre,
+                publicationDate: publicationDate,
+                img: img,
+            }
         }
+        updateBook(data)
 
-        updateBook(options)
-        toast("Updated success");
+    };
+
+    if (isSuccess) {
+        toast("Successfully book Added");
+        navigate('/')
     }
+
+    const handelDelete = (id: any) => {
+        console.log(id, user.email);
+
+        deleteBook(id)
+        toast('boook delete success')
+        // deleteBook({ id, user: user.email })
+
+    }
+    if (deleteSucces) {
+        toast('boook delete success')
+    }
+
+
+    useEffect(() => {
+        setTitle(data?.data?.title)
+        setAuthor(data?.data?.author)
+        setGenre(data?.data?.genre)
+        setPublicationDate(data?.data?.publicationDate)
+        setImg(data?.data?.img)
+    }, [data])
+
+    const [review, setReview] = useState('')
+
+    const handleSubmitReview = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const options = {
+            id: id,
+            data: { review: review }
+        }
+        console.log(options);
+
+        postReview(options)
+        setReview('');
+
+    }
+
 
 
     return (
         <>
             <div>
-                {/* The button to open modal */}
-                {/* <label htmlFor="my_modal_7" className="btn">open modal</label> */}
 
-                {/* Put this part before </body> tag */}
                 <input type="checkbox" id="my_modal_7" className="modal-toggle" />
                 <div className="modal">
                     <div className="modal-box">
                         <h3 className="text-lg font-bold">UPDATE BOOK</h3>
 
-
-                        <form className='bg-base-300 border-black rounded-lg p-10'
-                            onSubmit={handleSubmit(handelFormSubmit)}>
+                        <form
+                            onSubmit={handleSubmit}
+                            className='bg-base-300 border-black rounded-lg p-10'>
                             <div className='grid'>
                                 <label className='text-2xl inline-block' htmlFor="title">Title</label>
                                 <input
                                     className="py-2 mt-3 px-4 block w-80 max-w-lg border-gray-200 rounded-md text-lg focus:border-blue-500 focus:ring-blue-500  dark:border-gray-700 dark:text-gray-700"
                                     type="text"
                                     placeholder='book title'
-                                    autoCapitalize="none"
-                                    autoComplete="title"
-                                    autoCorrect="off"
-                                    {...register('title', { required: 'title is required' })}
+                                    required={true}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    value={title}
                                 />
                                 <input
                                     type="text"
                                     className="py-2 mt-3 px-4 block w-80 max-w-lg border-gray-200 rounded-md text-lg focus:border-blue-500 focus:ring-blue-500  dark:border-gray-700 dark:text-gray-700"
                                     placeholder="author"
-                                    {...register('author', { required: 'title is required' })}
+                                    value={author}
+                                    onChange={(e) => setAuthor(e.target.value)}
+                                    required={true}
                                 />
                                 <input
                                     type="text"
                                     className="py-2 mt-3 px-4 block w-80 max-w-lg border-gray-200 rounded-md text-lg focus:border-blue-500 focus:ring-blue-500  dark:border-gray-700 dark:text-gray-700"
                                     placeholder="genre"
-                                    {...register('genre', { required: 'genre is required' })}
+                                    value={genre}
+                                    onChange={(e) => setGenre(e.target.value)}
+
+                                    required={true}
                                 />
                                 <input
                                     type="text"
                                     className="py-2 mt-3 px-4 block w-80 max-w-lg border-gray-200 rounded-md text-lg focus:border-blue-500 focus:ring-blue-500  dark:border-gray-700 dark:text-gray-700"
                                     placeholder="publicationDate"
-                                    {...register('publicationDate', { required: 'publication Date is required' })}
+                                    value={publicationDate}
+                                    onChange={(e) => setPublicationDate(e.target.value)}
+                                    required={true}
                                 />
                                 <input
                                     type="text"
                                     className="py-2 mt-3 px-4 block w-80 max-w-lg border-gray-200 rounded-md text-lg focus:border-blue-500 focus:ring-blue-500  dark:border-gray-700 dark:text-gray-700"
                                     placeholder="img"
-                                    {...register('img', { required: 'image link is required' })}
+                                    required={true}
+                                    value={img}
+                                    onChange={(e) => setImg(e.target.value)}
                                 />
-                                <p>{ }</p>
                             </div>
 
-                            <div className='mt-8 mx-auto text-center'>
+                            <div className='mt-8  mx-auto text-center'>
+                                <button
+                                    type='submit'
+                                    className="modal-backdrop btn btn-success text-black" >UPDATE BOOK
+                                </button>
                                 <button>
-                                    <label typeof='onSubmit' className="modal-backdrop btn btn-success text-black" htmlFor="my_modal_7">UPDATE BOOK</label>
+                                    <label htmlFor="my_modal_7" className="ms-5 modal-backdrop btn btn-warning text-black" >Close</label>
                                 </button>
                             </div>
-                            {/* <div className='mt-8 mx-auto text-center'>
-                                <button className=" btn btn-success">ADD NEW BOOK</button>
-                            </div> */}
-
                         </form>
                     </div>
-
-
                 </div>
             </div>
 
             <div className='px-10 my-5'>
                 <h2 className="text-2xl py-2 text font-bold text-center">BOOK DETAILS</h2>
 
+
+                {/* // add reviews */}
+
+                <div className='grid justify-center my-9'>
+                    <div className="join  text-center">
+                        <form className="flex  items-center" onSubmit={handleSubmitReview}>
+                            <div>
+                                {/* // search bar */}
+                                <input name='review'
+                                    value={review}
+                                    onChange={(e) => setReview(e.target.value)}
+                                    className="input border-black border-2 w-96 input-bordered join-item" placeholder="Your review..." />
+                            </div>
+
+                            <div className="indicator">
+                                <button type="submit" className="btn join-item bg-success">Add Review</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <div className='mx-auto grid justify-center'>
-
-
                     <div className="lg:flex  border-2 rounded-lg">
 
                         <div className="h-96 p-5 mx-auto ">
@@ -119,12 +189,16 @@ const BookDetails = () => {
 
                         <div className=" border-gray-400 lg:border-l-0  lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between ">
                             <div className="mb-3">
-                                <h2 className="text-gray-900 font-bold text-xl mb-2">{data?.data?.title}</h2>
-                                <h3 className="text-gray-700 font-semibold text-xl mb-2">{data?.data?.author}</h3>
-                                <h4 className="text-gray-700 font-semibold text-xl mb-2">{data?.data?.publicationDate}</h4>
+                                <h2 className="text-gray-900 font-bold text-xl mb-2">Title: {data?.data?.title}</h2>
+                                <h3 className="text-gray-700 font-semibold text-xl mb-2">Author: {data?.data?.author}</h3>
+                                <h4 className="text-gray-700 font-semibold text-xl mb-2">Publication date: {data?.data?.publicationDate}</h4>
+                                <p>Reviews:{data?.data?.reviews.map((revie: any, index: number) => (
+                                    <p key={index}>{revie?.review}</p>
+
+                                ))}</p>
                             </div>
                             <div className='flex gap-5'>
-                                <button className=" btn btn-error">Delete </button>
+                                <button onClick={() => handelDelete(data?.data?._id)} className=" btn btn-error">Delete </button>
                                 <label htmlFor="my_modal_7" className="btn btn-success">Edit Book</label>
                             </div>
                         </div>
