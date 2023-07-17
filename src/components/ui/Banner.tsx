@@ -1,13 +1,12 @@
-import React from 'react';
-import banner from '../../assets/banner.jpg'
+import banner from '../../assets/bannerBook.jpg'
 
 const Banner = () => {
     return (
         <div className=''>
 
-            {/* <div>
+            <div>
                 <img className='max-h-screen w-full' src={banner} alt="" />
-            </div> */}
+            </div>
 
         </div>
     );

@@ -1,15 +1,15 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDeleteBookMutation, useGetSingleBookQuery, usePostBookMutation, usePostReviewMutation, useUpdateBookMutation } from '../redux/features/book/bookApi';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAppSelector } from '../redux/hooks';
+// import { useAppSelector } from '../redux/hooks';
 
 const BookDetails = () => {
     const params = useParams();
     const id = params.id
     const navigate = useNavigate()
-    const { data, isLoading } = useGetSingleBookQuery(id)
-    const user = useAppSelector(state => state.user.user)
+    const { data } = useGetSingleBookQuery(id)
+    // const user = useAppSelector(state => state.user.user)
 
     // console.log(data);
 
@@ -48,15 +48,9 @@ const BookDetails = () => {
     }
 
     const handelDelete = (id: any) => {
-        console.log(id, user.email);
-
         deleteBook(id)
         toast('boook delete success')
-        // deleteBook({ id, user: user.email })
-
-    }
-    if (deleteSucces) {
-        toast('boook delete success')
+        navigate('/all-books')
     }
 
 
@@ -80,6 +74,8 @@ const BookDetails = () => {
 
         postReview(options)
         setReview('');
+        toast("Successfully book review");
+
 
     }
 
@@ -192,12 +188,15 @@ const BookDetails = () => {
                                 <h2 className="text-gray-900 font-bold text-xl mb-2">Title: {data?.data?.title}</h2>
                                 <h3 className="text-gray-700 font-semibold text-xl mb-2">Author: {data?.data?.author}</h3>
                                 <h4 className="text-gray-700 font-semibold text-xl mb-2">Publication date: {data?.data?.publicationDate}</h4>
-                                <p>Reviews:{data?.data?.reviews.map((revie: any, index: number) => (
-                                    <p key={index}>{revie?.review}</p>
+                                <>Reviews:{
+                                    data?.data?.reviews.map((revie: any, index: number) => (
+                                        <p key={index}>{revie?.review}</p>
 
-                                ))}</p>
+                                    ))}
+                                </>
                             </div>
                             <div className='flex gap-5'>
+                                <button className=" btn btn-accent">Add To wishList </button>
                                 <button onClick={() => handelDelete(data?.data?._id)} className=" btn btn-error">Delete </button>
                                 <label htmlFor="my_modal_7" className="btn btn-success">Edit Book</label>
                             </div>

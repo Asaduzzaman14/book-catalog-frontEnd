@@ -76,7 +76,7 @@ const Login = () => {
                     {errors.password && <p>{errors.password.message}</p>}
 
                     <div className='mt-8 mx-auto text-center'>
-                        <button className=" btn btn-success">Create Account</button>
+                        <button className=" btn btn-success px-10">Login</button>
                     </div>
                 </form>
             </div>

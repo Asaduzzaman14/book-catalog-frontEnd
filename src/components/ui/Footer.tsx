@@ -1,11 +1,10 @@
-import React from 'react';
 import { RiFacebookBoxFill, RiInstagramLine } from 'react-icons/ri';
 
 const Footer = () => {
     const date = new Date();
     const year = date.getFullYear();
     return (
-        <div className="bg-[#242630] text-white text-secondary p-20">
+        <div className="bg-[#242630] text-white p-20">
             <div className="flex justify-between">
                 <div>
                     {/* <img className="h-10" src={logo} alt="Logo" /> */}

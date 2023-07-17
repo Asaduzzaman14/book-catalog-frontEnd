@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { signOut } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { setUser } from '../redux/features/userSlice';
-
-
 
 const Navbar = () => {
 
@@ -65,11 +63,24 @@ const Navbar = () => {
 
 
                             {user.email != null ?
-                                <li style={{ cursor: 'pointer' }} onClick={logout} className='md:ml-3 md:my-0 pointer px-2 py-4 transition-all duration-500 ease-in '>
-                                    <span className='text-lg text-gray-200 p-2 px-3  border rounded-sm hover:text-red-600 font-semibold transition-all duration-400'>
-                                        LOG OUT
-                                    </span>
-                                </li>
+                                <>
+                                    <li onClick={() => setOpen(!open)} className='md:ml-3 md:my-0  py-4 transition-all duration-500 ease-in '>
+                                        <Link to="/wishlist" className='text-lg text-gray-200 p-2 hover:underline translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-400'>
+                                            WishList
+                                        </Link>
+                                    </li>
+                                    <li onClick={() => setOpen(!open)} className='md:ml-3 md:my-0  py-4 transition-all duration-500 ease-in '>
+                                        <Link to="/wishList" className='text-lg text-gray-200 p-2 hover:underline translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-400'>
+                                            Riding
+                                        </Link>
+                                    </li>
+
+                                    <li style={{ cursor: 'pointer' }} onClick={logout} className='md:ml-3 md:my-0 pointer px-2 py-4 transition-all duration-500 ease-in '>
+                                        <span className='text-lg text-gray-200 p-2 px-3  border rounded-sm hover:text-red-600 font-semibold transition-all duration-400'>
+                                            LOG OUT
+                                        </span>
+                                    </li>
+                                </>
                                 :
                                 <>
                                     <li onClick={() => setOpen(!open)} className='md:ml-3 md:my-0  py-4 transition-all duration-500 ease-in '>

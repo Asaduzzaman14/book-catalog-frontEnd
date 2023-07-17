@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import './App.css'
-import Navbar from './layout/Navbar'
 import MainLaylout from './layout/MainLaylout'
 import { useAppDispatch } from './redux/hooks'
 import { onAuthStateChanged } from 'firebase/auth'

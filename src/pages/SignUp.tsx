@@ -1,8 +1,6 @@
 
 import { useEffect } from 'react'
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useForm } from 'react-hook-form';
-import { auth } from '../lib/firebase';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { createUser } from '../redux/features/userSlice';
 import { Link, useNavigate } from 'react-router-dom';

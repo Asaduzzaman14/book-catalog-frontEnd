@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import book from '../assets/books/shop-11.jpg'
 import Book from '../components/ui/Book';
 import { useGetBooksQuery } from '../redux/features/book/bookApi';
 
@@ -16,21 +14,11 @@ interface IBook {
 
 const AllBooks = () => {
 
-
-
-    // const [books, setBooks] = useState([])
-
-    // useEffect(() => {
-    //     fetch('data.json')
-    //         .then(data => data.json())
-    //         .then(data => setBooks(data))
-    // }, [])
-
-
     const { data, isLoading, error } = useGetBooksQuery(undefined)
 
 
     console.log(data, 'this is data');
+    console.log(isLoading, error);
 
 
 

@@ -1,6 +1,5 @@
-import React from 'react';
 import { IBook } from '../../types/globalTypes';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface IProps {
     book: IBook
@@ -8,8 +7,8 @@ interface IProps {
 
 const Book = ({ book }: IProps) => {
 
-    const location = useLocation();
-    const path = location.pathname;
+    // const location = useLocation();
+    // const path = location.pathname;
 
     return (
         <div>
@@ -23,10 +22,10 @@ const Book = ({ book }: IProps) => {
                     <div className=" lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between">
                         <div className="mb-8 text-start">
 
-                            <div className="text-gray-900 font-bold text-xl mb-2">{book.title}</div>
+                            <div className="text-gray-900 font-bold text-xl mb-2">Title: {book.title}</div>
                             <div className='flex gap-2'>
-                                <p className="text-gray-700 text-lg font-semibold">{book.genre}</p>
-                                <p className="text-gray-700 text-lg font-semibold">{book.publicationDate}</p>
+                                <p className="text-gray-700 text-lg font-semibold">Genre: {book.genre}</p>
+                                <p className="text-gray-700 text-lg font-semibold">Date: {book.publicationDate}</p>
                             </div>
                         </div>
 
