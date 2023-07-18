@@ -27,11 +27,11 @@ const Login = () => {
 
     React.useEffect(() => {
         console.log(user);
-        if (user.email != null && !isLoading) {
+        if (user.email != null) {
             navigate('/')
         }
 
-    }, [user.email, isLoading])
+    }, [user.email])
 
 
     const handelFormSubmit = (data: LoginFormInputs) => {

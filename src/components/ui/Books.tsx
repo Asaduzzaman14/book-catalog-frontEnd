@@ -9,6 +9,11 @@ const Books = () => {
 
     const { data } = useGetBooksQuery(undefined)
 
+    // const book = data?.data?.book?.reverse()
+    console.log(data);
+
+    // console.log(data?.data?.reverse());
+
 
     return (
         <>

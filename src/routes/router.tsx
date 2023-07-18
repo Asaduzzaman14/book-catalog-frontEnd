@@ -9,6 +9,7 @@ import AddNewBook from "../pages/AddNewBook";
 import BookDetails from "../pages/BookDetails";
 import About from "../pages/About";
 import WishListpage from "../pages/WishListpage";
+import PlanToRead from "../pages/PlanToRead";
 
 const routes = createBrowserRouter([
     {
@@ -39,6 +40,10 @@ const routes = createBrowserRouter([
             {
                 path: "/wishlist",
                 element: <WishListpage />
+            },
+            {
+                path: "/plan-to-read",
+                element: <PlanToRead />
             },
             {
                 path: '/sign-up',

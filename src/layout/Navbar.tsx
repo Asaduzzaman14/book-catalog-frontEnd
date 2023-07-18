@@ -70,8 +70,8 @@ const Navbar = () => {
                                         </Link>
                                     </li>
                                     <li onClick={() => setOpen(!open)} className='md:ml-3 md:my-0  py-4 transition-all duration-500 ease-in '>
-                                        <Link to="/wishList" className='text-lg text-gray-200 p-2 hover:underline translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-400'>
-                                            Riding
+                                        <Link to="/plan-to-read" className='text-lg text-gray-200 p-2 hover:underline translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-400'>
+                                            Riding List
                                         </Link>
                                     </li>
 

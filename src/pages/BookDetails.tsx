@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDeleteBookMutation, useGetSingleBookQuery, usePostReviewMutation, useUpdateBookMutation } from '../redux/features/book/bookApi';
 import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useAddToWishListMutation } from '../redux/features/wishList/wishList';
 // import { useAppSelector } from '../redux/hooks';
 
 const BookDetails = () => {
@@ -21,6 +22,7 @@ const BookDetails = () => {
     const [img, setImg] = useState('')
 
     const [updateBook, { isSuccess }] = useUpdateBookMutation()
+    const [addToWishList, { isSuccess: wishlist }] = useAddToWishListMutation()
 
     const [deleteBook, { isSuccess: deleteSucces }] = useDeleteBookMutation()
     const [postReview, { isSuccess: postSucces }] = usePostReviewMutation()
@@ -79,6 +81,19 @@ const BookDetails = () => {
         toast("Successfully book review");
 
 
+    }
+
+    const addToWishlist = (id: string) => {
+        console.log(id);
+        const data = {
+            bookId: id,
+            finishRead: false,
+            plantoRead: false
+        }
+        addToWishList(data)
+    }
+    if (wishlist) {
+        toast("Successfully Added");
     }
 
 
@@ -198,7 +213,7 @@ const BookDetails = () => {
                                 </>
                             </div>
                             <div className='flex gap-5'>
-                                <button className=" btn btn-accent">Add To wishList </button>
+                                <button onClick={() => addToWishlist(data?.data?._id)} className=" btn btn-accent">Add To wishList </button>
                                 <button onClick={() => handelDelete(data?.data?._id)} className=" btn btn-error">Delete </button>
                                 <label htmlFor="my_modal_7" className="btn btn-success">Edit Book</label>
                             </div>
