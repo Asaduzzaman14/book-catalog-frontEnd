@@ -13,7 +13,7 @@ const AddNewBook = () => {
 
     useEffect(() => {
         if (user.email == null) {
-            navigate('/all-books')
+            navigate('/login')
             toast('Please Login')
         }
     }, [])
