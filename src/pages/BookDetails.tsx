@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDeleteBookMutation, useGetSingleBookQuery, usePostBookMutation, usePostReviewMutation, useUpdateBookMutation } from '../redux/features/book/bookApi';
+import { useDeleteBookMutation, useGetSingleBookQuery, usePostReviewMutation, useUpdateBookMutation } from '../redux/features/book/bookApi';
 import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 // import { useAppSelector } from '../redux/hooks';
@@ -24,6 +24,8 @@ const BookDetails = () => {
 
     const [deleteBook, { isSuccess: deleteSucces }] = useDeleteBookMutation()
     const [postReview, { isSuccess: postSucces }] = usePostReviewMutation()
+    console.log(deleteSucces);
+    console.log(postSucces);
 
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
