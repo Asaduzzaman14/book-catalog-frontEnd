@@ -24,6 +24,7 @@ const Book = ({ book }: IProps) => {
 
                             <div className="text-gray-900 font-bold text-xl mb-2">Title: {book.title}</div>
                             <div className=' gap-2'>
+                                <p className="text-gray-800 text-lg font-semibold mb-2">Auhtor: {book?.author}</p>
                                 <p className="text-gray-800 text-lg font-semibold">Genre: {book.genre}</p>
                                 <p className="text-gray-800 text-lg pt-2 font-semibold">Date: {book.publicationDate}</p>
                             </div>

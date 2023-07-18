@@ -21,14 +21,14 @@ const PlanToRead = () => {
 
     return (
         <div>
-            <h2 className="text-2xl mt-5 text-center font-bold">PlanToRead</h2>
+            <h2 className="text-2xl mt-5 text-center font-bold">PLAN TO READ</h2>
 
             <div className='p-10 grid md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-y-10 gap-10'>
                 {
                     data?.data?.map((book: any) => (
-                        <div key={book._id}>
+                        <div key={book._id} className={`${book?.plantoRead == false && "hidden"}`}>
 
-                            <div className={`flex gap-5 ${book?.plantoRead == false && "hidden"}`}>
+                            <div className='flex gap-5' >
                                 <img className='w-32 h-32 rounded-md' src={book?.bookId.img} alt="" />
 
                                 <div>

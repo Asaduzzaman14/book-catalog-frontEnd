@@ -47,8 +47,8 @@ const BookDetails = () => {
     };
 
     if (isSuccess) {
-        toast("Successfully book Added");
-        navigate('/')
+        toast("Successfully book Updated");
+        navigate('/all-books')
     }
 
     const handelDelete = (id: any) => {
@@ -105,13 +105,13 @@ const BookDetails = () => {
                 <input type="checkbox" id="my_modal_7" className="modal-toggle" />
                 <div className="modal">
                     <div className="modal-box">
-                        <h3 className="text-lg font-bold">UPDATE BOOK</h3>
+                        <h3 className="text-lg font-bold text-center pb-4">UPDATE BOOK</h3>
 
                         <form
                             onSubmit={handleSubmit}
                             className='bg-base-300 border-black rounded-lg p-10'>
                             <div className='grid'>
-                                <label className='text-2xl inline-block' htmlFor="title">Title</label>
+                                {/* <label className='text-2xl inline-block' htmlFor="title">Title</label> */}
                                 <input
                                     className="py-2 mt-3 px-4 block w-80 max-w-lg border-gray-200 rounded-md text-lg focus:border-blue-500 focus:ring-blue-500  dark:border-gray-700 dark:text-gray-700"
                                     type="text"
@@ -156,12 +156,14 @@ const BookDetails = () => {
                             </div>
 
                             <div className='mt-8  mx-auto text-center'>
-                                <button
-                                    type='submit'
-                                    className="modal-backdrop btn btn-success text-black" >UPDATE BOOK
-                                </button>
+                                <div className=''>
+                                    <button
+                                        type='submit'
+                                        className="mb-4 btn btn-success text-black" >UPDATE BOOK
+                                    </button>
+                                </div>
                                 <button>
-                                    <label htmlFor="my_modal_7" className="ms-5 modal-backdrop btn btn-warning text-black" >Close</label>
+                                    <label htmlFor="my_modal_7" className=" modal-backdrop btn btn-warning text-black" >Close</label>
                                 </button>
                             </div>
                         </form>
@@ -205,12 +207,13 @@ const BookDetails = () => {
                                 <h2 className="text-gray-900 font-bold text-xl mb-2">Title: {data?.data?.title}</h2>
                                 <h3 className="text-gray-700 font-semibold text-xl mb-2">Author: {data?.data?.author}</h3>
                                 <h4 className="text-gray-700 font-semibold text-xl mb-2">Publication date: {data?.data?.publicationDate}</h4>
-                                <>Reviews:{
+                                <p className='text-lg'>Reviews:</p>
+                                <div className='text-lg'>{
                                     data?.data?.reviews.map((revie: any, index: number) => (
                                         <p key={index}>{revie?.review}</p>
 
                                     ))}
-                                </>
+                                </div>
                             </div>
                             <div className='flex gap-5'>
                                 <button onClick={() => addToWishlist(data?.data?._id)} className=" btn btn-accent">Add To wishList </button>

@@ -45,18 +45,18 @@ const Navbar = () => {
                         <div className="lg:flex lg:justify-between">
 
                             <li className={`relative group md:ml-3 text-xl md:my-0 py-4 transition-all duration-500 ease-in`}>
-                                <Link onClick={() => setOpen(!open)} to="/" className='text-lg text-gray-200 p-2 group-hover:border-b-2 border-b-primary translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-800'>
+                                <Link onClick={() => setOpen(!open)} to="/" className='text-lg text-gray-200 p-2 group-hover:border-b-2 border-b-red-500 translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-800'>
                                     HOME
                                 </Link>
                             </li>
 
                             <li onClick={() => setOpen(!open)} className={`relative group md:ml-3 text-xl md:my-0 py-4 transition-all duration-500 ease-in`}>
-                                <Link to="/all-books" className='text-lg text-gray-200 p-2 group-hover:border-b-2 border-b-primary translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-800'>
+                                <Link to="/all-books" className='text-lg text-gray-200 p-2 group-hover:border-b-2 border-b-red-500 translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-800'>
                                     ALL BOOKS
                                 </Link>
                             </li>
-                            <li className={`relative group md:ml-3 text-xl md:my-0 py-4 transition-all duration-500 ease-in`}>
-                                <Link to="/about" className='text-lg text-gray-200 p-2 group-hover:border-b-2 border-b-primary translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-800'>
+                            <li onClick={() => setOpen(!open)} className={`relative group md:ml-3 text-xl md:my-0 py-4 transition-all duration-500 ease-in`}>
+                                <Link to="/about" className='text-lg text-gray-200 p-2 group-hover:border-b-2 border-b-red-500 translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-800'>
                                     ABOUT
                                 </Link>
                             </li>
@@ -76,7 +76,7 @@ const Navbar = () => {
                                     </li>
 
                                     <li style={{ cursor: 'pointer' }} onClick={logout} className='md:ml-3 md:my-0 pointer px-2 py-4 transition-all duration-500 ease-in '>
-                                        <span className='text-lg text-gray-200 p-2 px-3  border rounded-sm hover:text-red-600 font-semibold transition-all duration-400'>
+                                        <span className='text-lg text-gray-200 p-2 px-3  border rounded-md hover:text-red-600 font-semibold transition-all duration-400'>
                                             LOG OUT
                                         </span>
                                     </li>
