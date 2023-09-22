@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Book from '../components/ui/Book';
 import { useGetBooksQuery } from '../redux/features/book/bookApi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface IBook {
     _id: number
@@ -15,6 +15,7 @@ interface IBook {
 
 const AllBooks = () => {
     const [search, setSearch] = useState('')
+
     const handelSearch = (e: any) => {
         e.preventDefault()
 
@@ -29,9 +30,6 @@ const AllBooks = () => {
 
     console.log(data, 'this is data');
     console.log(isLoading, error);
-
-
-
 
 
 

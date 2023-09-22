@@ -22,6 +22,7 @@ const WishListpage = () => {
         toast("Successfully Add to Reading List :)");
     }
 
+    console.log(data);
 
     return (
         <div>
@@ -33,7 +34,7 @@ const WishListpage = () => {
                         <div key={book._id}>
 
                             <div className='flex gap-5'>
-                                <img className='w-32 h-32 rounded-md' src={book?.bookId.img} alt="" />
+                                <img className='w-32 h-32 rounded-md' src={book?.bookId?.img} alt="" />
 
                                 <div>
                                     <p className='text-gray-900 font-bold text-xl mb-2'>Title: {book?.bookId?.title}</p>

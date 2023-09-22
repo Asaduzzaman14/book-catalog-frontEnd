@@ -21,7 +21,7 @@ const AddNewBook = () => {
     const [postBook, { isError, isLoading, isSuccess }] = usePostBookMutation()
     console.log(isError);
     console.log(isLoading);
-    console.log(isSuccess);
+    console.log('Success', isSuccess);
 
     const {
         register,
@@ -36,10 +36,10 @@ const AddNewBook = () => {
             reviews: []
         }
         console.log(bookData);
-        console.log(data);
+        // console.log(data);
 
 
-        postBook({ data })
+        postBook({ bookData })
     }
     if (isSuccess) {
         toast("Successfully book Added");
