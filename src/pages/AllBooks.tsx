@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Book from '../components/ui/Book';
 import { useGetBooksQuery } from '../redux/features/book/bookApi';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface IBook {
     _id: number

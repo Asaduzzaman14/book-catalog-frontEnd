@@ -20,7 +20,7 @@ const Login = () => {
     } = useForm<LoginFormInputs>();
 
     const navigate = useNavigate()
-    const { user, isLoading } = useAppSelector((state) => state.user)
+    const { user } = useAppSelector((state) => state.user)
 
     const dispatch = useAppDispatch()
 
